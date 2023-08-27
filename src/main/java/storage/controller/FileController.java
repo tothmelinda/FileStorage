@@ -2,9 +2,7 @@ package storage.controller;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import storage.entity.File;
@@ -59,8 +57,33 @@ public class FileController {
             Resource resource = new FileSystemResource(file.toFile());
 
             if (resource.exists() && resource.isReadable()) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentDisposition(ContentDisposition.inline().filename(fileEntity.getName()).build());
+                headers.setContentType(MediaType.IMAGE_JPEG); // Adjust the content type accordingly
+                headers.setCacheControl("max-age=3600"); // Cache for 1 hour (adjust as needed)
+
                 return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileEntity.getName() + "\"")
+                        .headers(headers)
+                        .contentType(MediaType.IMAGE_JPEG) // Adjust the content type accordingly
+                        .body(resource);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/view/{fileId}")
+    public ResponseEntity<Resource> viewFile(@PathVariable Long fileId) throws IOException {
+        String filePath = fileService.getFilePathById(fileId);
+        if (filePath != null) {
+            Path file = Paths.get(filePath);
+            Resource resource = new FileSystemResource(file.toFile());
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .headers(headers)
                         .body(resource);
             }
         }
