@@ -1,0 +1,31 @@
+# Ignore compiled .class files
+*.class
+
+# Ignore build directories
+/target/
+/out/
+
+# Ignore IDE-specific files and directories
+/.idea/
+/.vscode/
+#/target/classes/storage/controller/FileController.class
+#/target/classes/storage/config/CorsFilterConfig.class
+#/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+#/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+#/target/classes/storage/entity/File.class
+#/target/classes/storage/repository/FileRepository.class
+#/target/classes/storage/service/FileServiceImpl.class
+#/target/classes/storage/exceptions/FileStorageException.class
+#/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+#/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+#/target/classes/storage/Main.class
+#/target/OurSharedStorage-1.0-SNAPSHOT.jar
+#/target/OurSharedStorage-1.0-SNAPSHOT.jar.original
+#/target/maven-archiver/pom.properties
+#/target/classes/storage/config/WebConfig.class
+#/target/classes/storage/entity/Wishlist.class
+#/target/classes/storage/controller/WishlistController.class
+#/target/classes/storage/repository/WishlistRepository.class
+#/target/classes/storage/service/WishlistService.class
+#/target/classes/storage/service/WishlistServiceImpl.class
+
